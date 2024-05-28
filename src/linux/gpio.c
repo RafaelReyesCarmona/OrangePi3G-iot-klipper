@@ -10,7 +10,7 @@
 #include <string.h> // memset
 #include <sys/ioctl.h> // ioctl
 #include <unistd.h> // close
-#include <linux/gpio.h> // GPIOHANDLE_REQUEST_OUTPUT
+#include </usr/include/linux/gpio.h> // GPIOHANDLE_REQUEST_OUTPUT
 #include "command.h" // shutdown
 #include "gpio.h" // gpio_out_write
 #include "internal.h" // report_errno
@@ -27,7 +27,6 @@ DECL_ENUMERATION_RANGE("pin", "gpiochip4/gpio0", GPIO(4, 0), MAX_GPIO_LINES);
 DECL_ENUMERATION_RANGE("pin", "gpiochip5/gpio0", GPIO(5, 0), MAX_GPIO_LINES);
 DECL_ENUMERATION_RANGE("pin", "gpiochip6/gpio0", GPIO(6, 0), MAX_GPIO_LINES);
 DECL_ENUMERATION_RANGE("pin", "gpiochip7/gpio0", GPIO(7, 0), MAX_GPIO_LINES);
-DECL_ENUMERATION_RANGE("pin", "gpiochip8/gpio0", GPIO(8, 0), MAX_GPIO_LINES);
 
 struct gpio_line {
     int chipid;
@@ -35,8 +34,8 @@ struct gpio_line {
     int fd;
     int state;
 };
-static struct gpio_line gpio_lines[9 * MAX_GPIO_LINES];
-static int gpio_chip_fd[9] = { -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+static struct gpio_line gpio_lines[8 * MAX_GPIO_LINES];
+static int gpio_chip_fd[8] = { -1, -1, -1, -1, -1, -1, -1, -1 };
 
 static int
 get_chip_fd(uint8_t chipId)

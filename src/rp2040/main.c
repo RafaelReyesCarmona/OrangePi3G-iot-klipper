@@ -9,6 +9,7 @@
 #include "generic/armcm_reset.h" // try_request_canboot
 #include "hardware/structs/clocks.h" // clock_hw_t
 #include "hardware/structs/pll.h" // pll_hw_t
+#include "hardware/structs/psm.h" // psm_hw
 #include "hardware/structs/resets.h" // sio_hw
 #include "hardware/structs/watchdog.h" // watchdog_hw
 #include "hardware/structs/xosc.h" // xosc_hw
@@ -17,23 +18,27 @@
 
 
 /****************************************************************
- * Ram IRQ vector table
+ * watchdog handler
  ****************************************************************/
 
-// Copy vector table to ram and activate it
-static void
-enable_ram_vectortable(void)
+void
+watchdog_reset(void)
 {
-    // Symbols created by rp2040_link.lds.S linker script
-    extern uint32_t _ram_vectortable_start, _ram_vectortable_end;
-    extern uint32_t _text_vectortable_start;
-
-    uint32_t count = (&_ram_vectortable_end - &_ram_vectortable_start) * 4;
-    __builtin_memcpy(&_ram_vectortable_start, &_text_vectortable_start, count);
-    barrier();
-
-    SCB->VTOR = (uint32_t)&_ram_vectortable_start;
+    watchdog_hw->load = 0x800000; // ~350ms
 }
+DECL_TASK(watchdog_reset);
+
+void
+watchdog_init(void)
+{
+    psm_hw->wdsel = PSM_WDSEL_BITS & ~(PSM_WDSEL_ROSC_BITS|PSM_WDSEL_XOSC_BITS);
+    watchdog_reset();
+    watchdog_hw->ctrl = (WATCHDOG_CTRL_PAUSE_DBG0_BITS
+                         | WATCHDOG_CTRL_PAUSE_DBG1_BITS
+                         | WATCHDOG_CTRL_PAUSE_JTAG_BITS
+                         | WATCHDOG_CTRL_ENABLE_BITS);
+}
+DECL_INIT(watchdog_init);
 
 
 /****************************************************************
@@ -165,7 +170,6 @@ clock_setup(void)
 void
 armcm_main(void)
 {
-    enable_ram_vectortable();
     clock_setup();
     sched_main();
 }

@@ -116,11 +116,7 @@ class BLTouchEndstopWrapper:
         self.mcu_endstop.home_start(self.action_end_time, ENDSTOP_SAMPLE_TIME,
                                     ENDSTOP_SAMPLE_COUNT, ENDSTOP_REST_TIME,
                                     triggered=triggered)
-        try:
-            trigger_time = self.mcu_endstop.home_wait(
-                self.action_end_time + 0.100)
-        except self.printer.command_error as e:
-            return False
+        trigger_time = self.mcu_endstop.home_wait(self.action_end_time + 0.100)
         return trigger_time > 0.
     def raise_probe(self):
         self.sync_mcu_print_time()
@@ -187,9 +183,6 @@ class BLTouchEndstopWrapper:
         self.verify_raise_probe()
         self.sync_print_time()
         self.multi = 'OFF'
-    def probing_move(self, pos, speed):
-        phoming = self.printer.lookup_object('homing')
-        return phoming.probing_move(self, pos, speed)
     def probe_prepare(self, hmove):
         if self.multi == 'OFF' or self.multi == 'FIRST':
             self.lower_probe()

@@ -14,7 +14,7 @@
 void
 bootloader_request(void)
 {
-    if (!CONFIG_FLASH_APPLICATION_ADDRESS)
+    if (!CONFIG_FLASH_START)
         return;
     // Bootloader hack
     irq_disable();

@@ -10,7 +10,6 @@
 #include "board/irq.h" // irq_disable
 #include "command.h" // DECL_COMMAND
 #include "sched.h" // DECL_TASK
-#include "sensor_bulk.h" // sensor_bulk_report
 #include "spicmds.h" // spidev_transfer
 
 enum { SA_CHIP_A1333, SA_CHIP_AS5047D, SA_CHIP_TLE5012B, SA_CHIP_MAX };
@@ -30,15 +29,14 @@ struct spi_angle {
     struct timer timer;
     uint32_t rest_ticks;
     struct spidev_s *spi;
-    uint8_t flags, chip_type, time_shift, overflow;
-    struct sensor_bulk sb;
+    uint16_t sequence;
+    uint8_t flags, chip_type, data_count, time_shift, overflow;
+    uint8_t data[48];
 };
 
 enum {
     SA_PENDING = 1<<2,
 };
-
-#define BYTES_PER_SAMPLE 3
 
 static struct task_wake angle_wake;
 
@@ -74,22 +72,32 @@ command_config_spi_angle(uint32_t *args)
 DECL_COMMAND(command_config_spi_angle,
              "config_spi_angle oid=%c spi_oid=%c spi_angle_type=%c");
 
+// Report local measurement buffer
+static void
+angle_report(struct spi_angle *sa, uint8_t oid)
+{
+    sendf("spi_angle_data oid=%c sequence=%hu data=%*s"
+          , oid, sa->sequence, sa->data_count, sa->data);
+    sa->data_count = 0;
+    sa->sequence++;
+}
+
 // Send spi_angle_data message if buffer is full
 static void
 angle_check_report(struct spi_angle *sa, uint8_t oid)
 {
-    if (sa->sb.data_count + BYTES_PER_SAMPLE > ARRAY_SIZE(sa->sb.data))
-        sensor_bulk_report(&sa->sb, oid);
+    if (sa->data_count + 3 > ARRAY_SIZE(sa->data))
+        angle_report(sa, oid);
 }
 
 // Add an entry to the measurement buffer
 static void
 angle_add(struct spi_angle *sa, uint_fast8_t tcode, uint_fast16_t data)
 {
-    sa->sb.data[sa->sb.data_count] = tcode;
-    sa->sb.data[sa->sb.data_count + 1] = data;
-    sa->sb.data[sa->sb.data_count + 2] = data >> 8;
-    sa->sb.data_count += BYTES_PER_SAMPLE;
+    sa->data[sa->data_count] = tcode;
+    sa->data[sa->data_count + 1] = data;
+    sa->data[sa->data_count + 2] = data >> 8;
+    sa->data_count += 3;
 }
 
 // Add an error indicator to the measurement buffer
@@ -222,14 +230,18 @@ command_query_spi_angle(uint32_t *args)
 
     sched_del_timer(&sa->timer);
     sa->flags = 0;
-    if (!args[2])
+    if (!args[2]) {
         // End measurements
+        if (sa->data_count)
+            angle_report(sa, oid);
+        sendf("spi_angle_end oid=%c sequence=%hu", oid, sa->sequence);
         return;
-
+    }
     // Start new measurements query
     sa->timer.waketime = args[1];
     sa->rest_ticks = args[2];
-    sensor_bulk_reset(&sa->sb);
+    sa->sequence = 0;
+    sa->data_count = 0;
     sa->time_shift = args[3];
     sched_add_timer(&sa->timer);
 }
