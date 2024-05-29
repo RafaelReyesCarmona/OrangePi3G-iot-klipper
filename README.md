@@ -1,5 +1,3 @@
-[![Build test](https://github.com/RafaelReyesCarmona/OrangePi3G-iot-klipper/actions/workflows/build-test.yaml/badge.svg?branch=orangepi3g-iot)](https://github.com/RafaelReyesCarmona/OrangePi3G-iot-klipper/actions/workflows/build-test.yaml)
-
 # Welcome to the Klipper project!
 
 [![Klipper](docs/img/klipper-logo-small.png)](https://www.klipper3d.org/)
