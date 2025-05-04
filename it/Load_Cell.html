@@ -13,7 +13,7 @@
     
     
       
-        <title>Caratteristiche - Documentazione Klipper</title>
+        <title>Load Cells - Documentazione Klipper</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#caratteristiche" class="md-skip">
+        <a href="#load-cells" class="md-skip">
           Vai al contenuto
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Caratteristiche
+              Load Cells
             
           </span>
         </div>
@@ -306,59 +306,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Caratteristiche
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="Features.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="Features.html" class="md-nav__link">
         Caratteristiche
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Indice">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Indice
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#caratteristiche-aggiuntive" class="md-nav__link">
-    Caratteristiche aggiuntive
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#benchmark-dei-passi" class="md-nav__link">
-    Benchmark dei passi
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1273,15 +1225,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#caratteristiche-aggiuntive" class="md-nav__link">
-    Caratteristiche aggiuntive
+  <a href="#related-documentation" class="md-nav__link">
+    Related Documentation
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#benchmark-dei-passi" class="md-nav__link">
-    Benchmark dei passi
+  <a href="#using-load_cell_diagnostic" class="md-nav__link">
+    Using LOAD_CELL_DIAGNOSTIC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calibrating-a-load-cell" class="md-nav__link">
+    Calibrating a Load Cell
+  </a>
+  
+    <nav class="md-nav" aria-label="Calibrating a Load Cell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#applying-a-known-force-or-load" class="md-nav__link">
+    Applying a Known Force or Load
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-force-data" class="md-nav__link">
+    Reading Force Data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taring-a-load-cell" class="md-nav__link">
+    Taring a Load Cell
   </a>
   
 </li>
@@ -1298,165 +1284,76 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/Klipper3d/klipper/blob/master/docs/Features.md" title="Modifica" class="md-content__button md-icon">
+<a href="https://github.com/Klipper3d/klipper/blob/master/docs/Load_Cell.md" title="Modifica" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="caratteristiche">Caratteristiche<a class="headerlink" href="#caratteristiche" title="Permanent link">&para;</a></h1>
-<p>Klipper ha diverse caratteristiche interessanti:</p>
+<h1 id="load-cells">Load Cells<a class="headerlink" href="#load-cells" title="Permanent link">&para;</a></h1>
+<p>This document describes Klipper's support for load cells. Basic load cell functionality can be used to read force data and to weigh things like filament. A calibrated force sensor is an important part of a load cell based probe.</p>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Movimento passo-passo di alta precisione. Klipper utilizza un processore applicativo (come un Raspberry Pi a basso costo) per calcolare i movimenti della stampante. Il processore dell'applicazione determina quando far avanzare ciascun motore passo-passo, comprime quegli eventi, li trasmette al microcontrollore e quindi il microcontrollore esegue ogni evento all'ora richiesta. Ogni evento stepper è programmato con una precisione di 25 microsecondi o superiore. Il software non utilizza stime cinematiche (come l'algoritmo di Bresenham), ma calcola tempi di passo precisi in base alla fisica dell'accelerazione e alla fisica della cinematica della macchina. Il movimento passo-passo più preciso garantisce un funzionamento della stampante più silenzioso e stabile.</li>
-<li>Le migliori prestazioni della categoria. Klipper è in grado di raggiungere velocità di passo elevate sia sui microcontrollori nuovi che su quelli vecchi. Anche i vecchi microcontrollori a 8 bit possono ottenere velocità superiori a 175.000 passi al secondo. Sui microcontrollori più recenti sono possibili diversi milioni di passi al secondo. Velocità di stepper più elevate consentono velocità di stampa più elevate. La temporizzazione degli eventi dello stepper rimane precisa anche a velocità elevate, migliorando la stabilità generale.</li>
-<li>Klipper supporta stampanti con più microcontrollori. Ad esempio, un microcontrollore potrebbe essere utilizzato per controllare un estrusore, mentre un altro controlla i riscaldatori della stampante, mentre un terzo controlla il resto della stampante. Il software host Klipper implementa la sincronizzazione dell'orologio per tenere conto della deriva dell'orologio tra i microcontrollori. Non è necessario alcun codice speciale per abilitare più microcontrollori: sono necessarie solo alcune righe in più nel file di configurazione.</li>
-<li>Configurazione tramite semplice file. Non è necessario eseguire il reflash del microcontrollore per modificare un'impostazione. Tutta la configurazione di Klipper è memorizzata in un file di configurazione standard che può essere facilmente modificato. Ciò semplifica la configurazione e la manutenzione dell'hardware.</li>
-<li>Klipper supporta "Smooth Pressure Advance", un meccanismo per tenere conto degli effetti della pressione all'interno di un estrusore. Ciò riduce la "melma" dell'estrusore e migliora la qualità degli angoli di stampa. L'implementazione di Klipper non introduce variazioni istantanee della velocità dell'estrusore, il che migliora la stabilità e la robustezza complessive.</li>
-<li>Klipper supporta "Input Shaping" per ridurre l'impatto delle vibrazioni sulla qualità di stampa. Ciò può ridurre o eliminare il "ringing" (noto anche come "ghosting", "eco" o "increspatura") nelle stampe. Può anche consentire di ottenere velocità di stampa più elevate pur mantenendo un'elevata qualità di stampa.</li>
-<li>Klipper utilizza un "risolutore iterativo" per calcolare sequenze temporali precisi da semplici equazioni cinematiche. Ciò semplifica il porting di Klipper su nuovi tipi di robot e mantiene i tempi precisi anche con cinematiche complesse (non è necessaria la "segmentazione della linea").</li>
-<li>Klipper è indipendente dall'hardware. Si dovrebbe ottenere la stessa tempistica precisa indipendentemente dall'hardware dell'elettronica di basso livello. Il codice del microcontrollore Klipper è progettato per seguire fedelmente la pianificazione fornita dal software host Klipper (o avvisare in modo evidente l'utente se non è in grado di farlo). Ciò semplifica l'utilizzo dell'hardware disponibile, l'aggiornamento al nuovo hardware e la fiducia nell'hardware.</li>
-<li>Codice portatile. Klipper funziona su microcontrollori basati su ARM, AVR e PRU. Le stampanti esistenti in stile "reprap" possono eseguire Klipper senza modifiche hardware: basta aggiungere un Raspberry Pi. Il layout del codice interno di Klipper semplifica il supporto anche di altre architetture di microcontrollori.</li>
-<li>Codice più semplice. Klipper utilizza un linguaggio di alto livello (Python) per la maggior parte del codice. Gli algoritmi cinematici, l'analisi del G-code, gli algoritmi di riscaldamento e termistore, ecc. sono tutti scritti in Python. Ciò semplifica lo sviluppo di nuove funzionalità.</li>
-<li>Macro programmabili personalizzate. È possibile definire nuovi comandi G-Code nel file di configurazione della stampante (non sono necessarie modifiche al codice). Questi comandi sono programmabili, consentendo loro di produrre azioni diverse a seconda dello stato della stampante.</li>
-<li>Server API integrato. Oltre all'interfaccia G-Code standard, Klipper supporta una ricca interfaccia applicativa basata su JSON. Ciò consente ai programmatori di creare applicazioni esterne con un controllo dettagliato della stampante.</li>
+<li><a href="Config_Reference.html#load_cell">load_cell Config Reference</a></li>
+<li><a href="G-Codes.html#load_cell">load_cell G-Code Commands</a></li>
+<li><a href="Status_Reference.html#load_cell">load_cell Status Reference</a></li>
 </ul>
-<h2 id="caratteristiche-aggiuntive">Caratteristiche aggiuntive<a class="headerlink" href="#caratteristiche-aggiuntive" title="Permanent link">&para;</a></h2>
-<p>Klipper supporta molte funzionalità standard della stampante 3D:</p>
+<h2 id="using-load_cell_diagnostic">Using <code>LOAD_CELL_DIAGNOSTIC</code><a class="headerlink" href="#using-load_cell_diagnostic" title="Permanent link">&para;</a></h2>
+<p>When you first connect a load cell its good practice to check for issues by running <code>LOAD_CELL_DIAGNOSTIC</code>. This tool collects 10 seconds of data from the load cell and resport statistics:</p>
+<div class="highlight"><pre><span></span><code>$ LOAD_CELL_DIAGNOSTIC
+// Collecting load cell data for 10 seconds...
+// Samples Collected: 3211
+// Measured samples per second: 332.0
+// Good samples: 3211, Saturated samples: 0, Unique values: 900
+// Sample range: [4.01% to 4.02%]
+// Sample range / sensor capacity: 0.00524%
+</code></pre></div>
+
+<p>Things you can check with this data:</p>
 <ul>
-<li>Diverse interfacce web disponibili. Funziona con Randa, Fluidd, OctoPrint e altri. Ciò consente di controllare la stampante utilizzando un normale browser web. Lo stesso Raspberry Pi che esegue Klipper può anche eseguire l'interfaccia web.</li>
-<li>Supporto G-code standard. Sono supportati i comandi G-code comuni prodotti dai tipici "slicer" (SuperSlicer, Cura, PrusaSlicer, ecc.).</li>
-<li>Supporto per più estrusori. Sono supportati anche estrusori con riscaldatori condivisi ed estrusori su carrelli indipendenti (IDEX).</li>
-<li>Supporto per stampanti cartesiane, delta, corexy, corexz, hybrid-corexy, hybrid-corexz, deltesian, rotary delta, polar e cable winch.</li>
-<li>Automatic bed leveling support. Klipper can be configured for basic bed tilt detection or full mesh bed leveling. The bed mesh can be customized to the print size (adaptive bed mesh). If the bed uses multiple Z steppers then Klipper can also level by independently manipulating the Z steppers. Most Z height probes are supported, including BL-Touch probes and servo activated probes. Probes may be calibrated for axis twist compensation. If using an "eddy current probe" then one can utilize fast bed mesh scanning,</li>
-<li>Supporto per la calibrazione delta automatica. Lo strumento di calibrazione può eseguire la calibrazione dell'altezza di base e una calibrazione avanzata delle dimensioni X e Y. La calibrazione può essere eseguita con una sonda di altezza Z o tramite tastatura manuale.</li>
-<li>Supporto "escludi oggetto" in fase di esecuzione. Se configurato, questo modulo può facilitare l'annullamento di un solo oggetto in una stampa multiparte.</li>
-<li>Support for common temperature sensors (eg, common thermistors, AD595, AD597, AD849x, PT100, PT1000, MAX6675, MAX31855, MAX31856, MAX31865, BME280, HTU21D, DS18B20, AHT10, SHT3x, and LM75). Custom thermistors and custom analog temperature sensors can also be configured. One can monitor the internal micro-controller temperature sensor and the internal temperature sensor of a Raspberry Pi.</li>
-<li>Protezione del riscaldatore termico di base abilitata di default.</li>
-<li>Support for standard fans, nozzle fans, and temperature controlled fans. No need to keep fans running when the printer is idle. Fan speed can be monitored on fans that have a tachometer. One can assign a "math formula" to a fan for automatic fan speed updating.</li>
-<li>Supporto per la configurazione in fase di esecuzione dei driver per motori passo-passo TMC2130, TMC2208/TMC2224, TMC2209, TMC2660 e TMC5160. È inoltre disponibile il supporto per il controllo corrente dei tradizionali driver passo-passo tramite i pin AD5206, DAC084S085, MCP4451, MCP4728, MCP4018 e PWM.</li>
-<li>Supporto per comuni display LCD collegati direttamente alla stampante. È disponibile anche un menu predefinito. Il contenuto del display e del menu può essere completamente personalizzato tramite il file di configurazione.</li>
-<li>Accelerazione costante e supporto "look-ahead". Tutti i movimenti della stampante accelereranno gradualmente dall'arresto alla velocità di crociera, quindi decelereranno fino all'arresto. Il flusso in entrata dei comandi di movimento del G-code viene messo in coda e analizzato: l'accelerazione tra i movimenti in una direzione simile sarà ottimizzata per ridurre gli arresti di stampa e migliorare il tempo di stampa complessivo.</li>
-<li>Klipper implementa un algoritmo "stepper phase endstop" che può migliorare la precisione dei tipici interruttori endstop. Se regolato correttamente, può migliorare l'adesione del primo strato di stampa.</li>
-<li>Supporto per sensori di presenza del filamento, sensori di movimento del filamento e sensori di larghezza del filamento.</li>
-<li>Support for measuring and recording acceleration using adxl345, mpu9250, mpu6050, lis2dw12, lis3dh, and icm20948 accelerometers.</li>
-<li>Supporto per limitare la velocità massima di brevi spostamenti a "zigzag" per ridurre le vibrazioni e il rumore della stampante. Per ulteriori informazioni, vedere il documento <a href="Kinematics.html">cinematica</a>.</li>
-<li>Sono disponibili file di configurazione di esempio per molte stampanti comuni. Controllare la <a href="https://github.com/Klipper3d/klipper/blob/master/config/">directory di configurazione</a> per un elenco.</li>
+<li>The configured sample rate of the sensor should be close to the 'Measured samples per second' value. If it is not you may have a configuration or wiring issue.</li>
+<li>'Saturated samples' should be 0. If you have saturated samples it means the load sell is seeing more force than it can measure.</li>
+<li>'Unique values' should be a large percentage of the 'Samples Collected' value. If 'Unique values' is 1 it is very likely a wiring issue.</li>
+<li>Tap or push on the sensor while <code>LOAD_CELL_DIAGNOSTIC</code> runs. If things are working correctly ths should increase the 'Sample range'.</li>
 </ul>
-<p>Per iniziare con Klipper, leggi la guida <a href="Installation.html">installazione</a>.</p>
-<h2 id="benchmark-dei-passi">Benchmark dei passi<a class="headerlink" href="#benchmark-dei-passi" title="Permanent link">&para;</a></h2>
-<p>Di seguito sono riportati i risultati dei test delle prestazioni degli stepper. I numeri visualizzati rappresentano il numero totale di passi al secondo sul microcontrollore.</p>
-<table>
-<thead>
-<tr>
-<th>Microcontrollore</th>
-<th>1 stepper attivo</th>
-<th>3 stepper attivi</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>16Mhz AVR</td>
-<td>157K</td>
-<td>99K</td>
-</tr>
-<tr>
-<td>20Mhz AVR</td>
-<td>196K</td>
-<td>123K</td>
-</tr>
-<tr>
-<td>SAMD21</td>
-<td>686K</td>
-<td>471K</td>
-</tr>
-<tr>
-<td>STM32F042</td>
-<td>814K</td>
-<td>578K</td>
-</tr>
-<tr>
-<td>Beaglebone PRU</td>
-<td>866K</td>
-<td>708K</td>
-</tr>
-<tr>
-<td>STM32G0B1</td>
-<td>1103K</td>
-<td>790K</td>
-</tr>
-<tr>
-<td>STM32F103</td>
-<td>1180K</td>
-<td>818K</td>
-</tr>
-<tr>
-<td>SAM3X8E</td>
-<td>1273K</td>
-<td>981K</td>
-</tr>
-<tr>
-<td>SAM4S8C</td>
-<td>1690K</td>
-<td>1385K</td>
-</tr>
-<tr>
-<td>LPC1768</td>
-<td>1923K</td>
-<td>1351K</td>
-</tr>
-<tr>
-<td>LPC1769</td>
-<td>2353K</td>
-<td>1622K</td>
-</tr>
-<tr>
-<td>SAM4E8E</td>
-<td>2500K</td>
-<td>1674K</td>
-</tr>
-<tr>
-<td>SAMD51</td>
-<td>3077K</td>
-<td>1885K</td>
-</tr>
-<tr>
-<td>AR100</td>
-<td>3529K</td>
-<td>2507K</td>
-</tr>
-<tr>
-<td>STM32F407</td>
-<td>3652K</td>
-<td>2459K</td>
-</tr>
-<tr>
-<td>STM32F446</td>
-<td>3913K</td>
-<td>2634K</td>
-</tr>
-<tr>
-<td>RP2040</td>
-<td>4000K</td>
-<td>2571K</td>
-</tr>
-<tr>
-<td>RP2350</td>
-<td>4167K</td>
-<td>2663K</td>
-</tr>
-<tr>
-<td>SAME70</td>
-<td>6667K</td>
-<td>4737K</td>
-</tr>
-<tr>
-<td>STM32H723</td>
-<td>7429K</td>
-<td>8619K</td>
-</tr>
-</tbody>
-</table>
-<p>Se non sei sicuro del microcontrollore su una particolare scheda, trova il <a href="https://github.com/Klipper3d/klipper/blob/master/config/">file di configurazione</a> appropriato e cerca il nome del microcontrollore nei commenti nella parte superiore di quel file.</p>
-<p>Ulteriori dettagli sui benchmark sono disponibili nel <a href="Benchmarks.html">documento Benchmarks</a>.</p>
+<h2 id="calibrating-a-load-cell">Calibrating a Load Cell<a class="headerlink" href="#calibrating-a-load-cell" title="Permanent link">&para;</a></h2>
+<p>Load cells are calibrated using the <code>LOAD_CELL_CALIBRATE</code> command. This is an interactive calibration utility that walks you though a 3 step process:</p>
+<ol>
+<li>First use the <code>TARE</code> command to establish the zero force value. This is the <code>reference_tare_counts</code> config value.</li>
+<li>Next you apply a known load or force to the load cell and run the <code>CALIBRATE GRAMS=nnn</code> command. From this the <code>counts_per_gram</code> value is calculated. See <a href="#applying-a-known-force-or-load">the next section</a> for some suggestions on how to do this.</li>
+<li>Finally, use the <code>ACCEPT</code> command to save the results.</li>
+</ol>
+<p>You can cancel the calibration process at any time with <code>ABORT</code>.</p>
+<h3 id="applying-a-known-force-or-load">Applying a Known Force or Load<a class="headerlink" href="#applying-a-known-force-or-load" title="Permanent link">&para;</a></h3>
+<p>The <code>CALIBRATE GRAMS=nnn</code> step can be accomplished in a number of ways. If your load cell is under a platform like a bed or filament holder it might be easiest to put a known mass on the platform. E.g. you could use a couple of 1KG filament spools.</p>
+<p>If your load cell is in the printer's toolhead a different approach is easier. Put a digital scale on the printers bed and gently lower the toolhead onto the scale (or raise the bed into the toolhead if your bed moves). You may be able to do this using the <code>FORCE_MOVE</code> command. But more likely you will have to manually moving the z axis with the motors off until the toolhead presses on the scale.</p>
+<p>A good calibration force would ideally be a large percentage of the load cell's rated capacity. E.g. if you have a 5Kg load cell you would ideally calibrate it with a 5kg mass. This might work well with under-bed sensors that have to support a lot of weight. For toolhead probes this may not be a load that your printer bed or toolhead can tolerate without damage. Do try to use at least 1Kg of force, most printers should tolerate this without issue.</p>
+<p>When calibrating make careful note of the values reported:</p>
+<div class="highlight"><pre><span></span><code>$ CALIBRATE GRAMS=555
+// Calibration value: -2.78% (-59803108), Counts/gram: 73039.78739,
+Total capacity: +/- 29.14Kg
+</code></pre></div>
+
+<p>The <code>Total capacity</code> should be close to the theoretical rating of the load cell based on the sensor's capacity. If it is much larger you could have used a higher gain setting in the sensor or a more sensitive load cell. This isn't as critical for 32bit and 24bit sensors but is much more critical for low bit width sensors.</p>
+<h2 id="reading-force-data">Reading Force Data<a class="headerlink" href="#reading-force-data" title="Permanent link">&para;</a></h2>
+<p>Force data can be read with a GCode command:</p>
+<div class="highlight"><pre><span></span><code>LOAD_CELL_READ
+// 10.6g (1.94%)
+</code></pre></div>
+
+<p>Data is also continuously read and can be consumed from the load_cell printer object in a macro:</p>
+<div class="highlight"><pre><span></span><code>{% set grams = printer.load_cell.force_g %}
+</code></pre></div>
+
+<p>This provides an average force over the last 1 second, similar to how temperature sensors work.</p>
+<h2 id="taring-a-load-cell">Taring a Load Cell<a class="headerlink" href="#taring-a-load-cell" title="Permanent link">&para;</a></h2>
+<p>Taring, sometimes called zeroing, sets the current weight reported by the load_cell to 0. This is useful for measuring relative to a known weight. e.g. when measuring a filament spool, using <code>LOAD_CELL_TARE</code> sets the weight to 0. Then as filament is printed the load_cell will report the weight of the filament used.</p>
+<div class="highlight"><pre><span></span><code>LOAD_CELL_TARE
+// Load cell tare value: 5.32% (445903)
+</code></pre></div>
+
+<p>The current tare value is reported in the printers status and can be read in a macro:</p>
+<div class="highlight"><pre><span></span><code>{% set tare_counts = printer.load_cell.tare_counts %}
+</code></pre></div>
 
               
             </article>
@@ -1471,41 +1368,6 @@
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Piede">
-      
-        
-        <a href="Overview.html" class="md-footer__link md-footer__link--prev" aria-label="Precedente: Panoramica" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Precedente
-              </span>
-              Panoramica
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="FAQ.html" class="md-footer__link md-footer__link--next" aria-label="Prossimo: Domande frequenti" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Prossimo
-              </span>
-              Domande frequenti
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
